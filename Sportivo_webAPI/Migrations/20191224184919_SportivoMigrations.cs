@@ -31,6 +31,7 @@ namespace Sportivo_webAPI.Migrations
                 {
                     CourtId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CourtName = table.Column<string>(nullable: true),
                     CompanyId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

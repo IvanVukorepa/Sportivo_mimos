@@ -10,7 +10,7 @@ using Sportivo_webAPI.DAL;
 namespace Sportivo_webAPI.Migrations
 {
     [DbContext(typeof(SportivoContext))]
-    [Migration("20191224171654_SportivoMigrations")]
+    [Migration("20191224184919_SportivoMigrations")]
     partial class SportivoMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,6 +49,8 @@ namespace Sportivo_webAPI.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("CompanyId");
+
+                    b.Property<string>("CourtName");
 
                     b.HasKey("CourtId");
 

@@ -8,6 +8,7 @@ namespace Sportivo_webAPI.Models
     public class Court
     {
         public int CourtId { get; set; }
+        public string CourtName { get; set; }
         public Company Company { get; set; }
         public int CompanyId { get; set; }
         public ICollection<Reservation> Reservations { get; set; }

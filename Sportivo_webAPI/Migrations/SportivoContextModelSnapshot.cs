@@ -48,6 +48,8 @@ namespace Sportivo_webAPI.Migrations
 
                     b.Property<int>("CompanyId");
 
+                    b.Property<string>("CourtName");
+
                     b.HasKey("CourtId");
 
                     b.HasIndex("CompanyId");
