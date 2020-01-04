@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Sportivo_webAPI.Migrations
 {
-    public partial class SportivoMigrations : Migration
+    public partial class SportivoMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -51,11 +51,14 @@ namespace Sportivo_webAPI.Migrations
                 {
                     UserId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Username = table.Column<string>(nullable: true),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: true),
-                    CompanyId = table.Column<int>(nullable: true)
+                    CompanyId = table.Column<int>(nullable: true),
+                    Token = table.Column<string>(nullable: true),
+                    AccessLevel = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

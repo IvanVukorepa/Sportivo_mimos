@@ -84,6 +84,8 @@ namespace Sportivo_webAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("AccessLevel");
+
                     b.Property<int?>("CompanyId");
 
                     b.Property<string>("FirstName");
@@ -93,6 +95,10 @@ namespace Sportivo_webAPI.Migrations
                     b.Property<string>("Password");
 
                     b.Property<string>("PhoneNumber");
+
+                    b.Property<string>("Token");
+
+                    b.Property<string>("Username");
 
                     b.HasKey("UserId");
 

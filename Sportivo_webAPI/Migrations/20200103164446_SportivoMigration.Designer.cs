@@ -10,8 +10,8 @@ using Sportivo_webAPI.DAL;
 namespace Sportivo_webAPI.Migrations
 {
     [DbContext(typeof(SportivoContext))]
-    [Migration("20191224184919_SportivoMigrations")]
-    partial class SportivoMigrations
+    [Migration("20200103164446_SportivoMigration")]
+    partial class SportivoMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -86,6 +86,8 @@ namespace Sportivo_webAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("AccessLevel");
+
                     b.Property<int?>("CompanyId");
 
                     b.Property<string>("FirstName");
@@ -95,6 +97,10 @@ namespace Sportivo_webAPI.Migrations
                     b.Property<string>("Password");
 
                     b.Property<string>("PhoneNumber");
+
+                    b.Property<string>("Token");
+
+                    b.Property<string>("Username");
 
                     b.HasKey("UserId");
 

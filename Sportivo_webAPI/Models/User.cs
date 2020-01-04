@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Sportivo_webAPI.Models
 {
-    enum UserAccessLevel
+    public enum UserAccessLevel
     {
         Customer,
         Admin
@@ -13,6 +13,7 @@ namespace Sportivo_webAPI.Models
     public class User
     {
         public int UserId { get; set; }
+        public string Username { get; set; }
         public ICollection<Reservation> Reservations { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -20,6 +21,12 @@ namespace Sportivo_webAPI.Models
         public string Password { get; set; }
         public Company Company { get; set; }
         public int? CompanyId { get; set; }
+        public string Token { get; set; }
+        public UserAccessLevel AccessLevel { get; set; }
 
+        public User()
+        {
+
+        }
     }
 }
