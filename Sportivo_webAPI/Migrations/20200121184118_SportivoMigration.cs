@@ -18,7 +18,9 @@ namespace Sportivo_webAPI.Migrations
                     Latitude = table.Column<double>(nullable: false),
                     Longitude = table.Column<double>(nullable: false),
                     PhoneNumber = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true)
+                    Description = table.Column<string>(nullable: true),
+                    Opens = table.Column<DateTime>(nullable: false),
+                    Closes = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -26,23 +28,17 @@ namespace Sportivo_webAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Courts",
+                name: "Sports",
                 columns: table => new
                 {
-                    CourtId = table.Column<int>(nullable: false)
+                    SportId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CourtName = table.Column<string>(nullable: true),
-                    CompanyId = table.Column<int>(nullable: false)
+                    Name = table.Column<string>(nullable: true),
+                    ImageURL = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Courts", x => x.CourtId);
-                    table.ForeignKey(
-                        name: "FK_Courts_Companies_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "Companies",
-                        principalColumn: "CompanyId",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_Sports", x => x.SportId);
                 });
 
             migrationBuilder.CreateTable(
@@ -72,6 +68,33 @@ namespace Sportivo_webAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Courts",
+                columns: table => new
+                {
+                    CourtId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CourtName = table.Column<string>(nullable: true),
+                    CompanyId = table.Column<int>(nullable: false),
+                    SportId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Courts", x => x.CourtId);
+                    table.ForeignKey(
+                        name: "FK_Courts_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
+                        principalColumn: "CompanyId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Courts_Sports_SportId",
+                        column: x => x.SportId,
+                        principalTable: "Sports",
+                        principalColumn: "SportId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Reservations",
                 columns: table => new
                 {
@@ -79,7 +102,8 @@ namespace Sportivo_webAPI.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<int>(nullable: false),
                     CourtId = table.Column<int>(nullable: false),
-                    DateTime = table.Column<DateTime>(nullable: false)
+                    StartTime = table.Column<DateTime>(nullable: false),
+                    EndTime = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -102,6 +126,11 @@ namespace Sportivo_webAPI.Migrations
                 name: "IX_Courts_CompanyId",
                 table: "Courts",
                 column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Courts_SportId",
+                table: "Courts",
+                column: "SportId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reservations_CourtId",
@@ -129,6 +158,9 @@ namespace Sportivo_webAPI.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Sports");
 
             migrationBuilder.DropTable(
                 name: "Companies");

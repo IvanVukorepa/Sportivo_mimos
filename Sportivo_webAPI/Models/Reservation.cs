@@ -12,6 +12,15 @@ namespace Sportivo_webAPI.Models
         public int UserId { get; set; }
         public Court Court { get; set; }
         public int CourtId { get; set; }
-        public DateTime DateTime { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+
+        public Reservation() { }
+        public Reservation(DateTime start, DateTime end, int courtId)
+        {
+            StartTime = start;
+            EndTime = end;
+            CourtId = courtId;
+        }
     }
 }
