@@ -1,7 +1,5 @@
 package com.example.sportivo;
 
-import com.example.sportivo.reservation_screen.Item;
-
 import java.util.ArrayList;
 import java.util.List;
 

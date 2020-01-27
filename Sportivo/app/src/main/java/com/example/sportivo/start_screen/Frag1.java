@@ -20,7 +20,7 @@ import com.example.sportivo.choice_screen.Choice;
 
 public class Frag1 extends Fragment {
 
-    View root;
+    private View root;
     ListView sportsList;
     @Nullable
     @Override

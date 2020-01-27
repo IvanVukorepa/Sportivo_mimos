@@ -71,21 +71,18 @@ public class TimeSlot {
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
-        }
-        if (obj == null) {
+        }else if (obj == null) {
+            return false;
+        }else if (!(obj instanceof TimeSlot)) {
             return false;
         }
-        if (!(obj instanceof TimeSlot)) {
-            return false;
-        }
+
         TimeSlot other = (TimeSlot) obj;
         if (startsHour != other.startsHour) {
             return false;
-        }
-        if (startsMinutes != other.startsMinutes) {
+        }else if (startsMinutes != other.startsMinutes) {
             return false;
-        }
-        if (courtId != other.courtId) {
+        }else if (courtId != other.courtId) {
             return false;
         }
         return true;

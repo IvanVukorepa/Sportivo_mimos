@@ -17,8 +17,6 @@ import com.squareup.picasso.Picasso;
 
 public class Frag1_Adapter extends BaseAdapter {
 
-    public static int count=0, count2=0;
-
         @Override
         public int getCount() {
             return Frag1_DataStorage.sports.size();
@@ -26,12 +24,12 @@ public class Frag1_Adapter extends BaseAdapter {
 
         @Override
         public Object getItem(int position) {
-            return null;
+            return Frag1_DataStorage.sports.get(position);
         }
 
         @Override
         public long getItemId(int position) {
-            return 0;
+            return position;
         }
 
         private Context myContext;
@@ -46,9 +44,7 @@ public class Frag1_Adapter extends BaseAdapter {
         public View getView(int i, View view, ViewGroup viewGroup) {
             if (view == null) {
                 view = mInflater.inflate(R.layout.ss_frag1_listfill, viewGroup, false);
-                Log.i("blabla", "view is null");
             }
-            Log.i("counting", "other " + String.valueOf(++count2));
 
             final TextView name = (TextView) view.findViewById(R.id.name);
             ImageView imageTmb = (ImageView) view.findViewById(R.id.image_tmb);

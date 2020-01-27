@@ -13,6 +13,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.example.sportivo.R;
 import com.example.sportivo.Singleton;
+import com.example.sportivo.TokenManager;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -44,11 +45,13 @@ public class Frag1_DataStorage {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(context, "Error retrieving data from server", Toast.LENGTH_SHORT);
+                    Toast.makeText(context, "Error retrieving data from server", Toast.LENGTH_SHORT).show();
                 }
             });
 
             Singleton.getInstance(context).addToRequestQueue(getSports);
+
+            Log.i("blabla", "token: " + TokenManager.getToken());
 
         }
 

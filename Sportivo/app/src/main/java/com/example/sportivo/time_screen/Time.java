@@ -19,6 +19,7 @@ import com.example.sportivo.Reservation;
 import com.example.sportivo.ReservationDataStorage;
 import com.example.sportivo.Singleton;
 import com.example.sportivo.objects_screen.Objects;
+import com.example.sportivo.reservation_screen.MainActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.timessquare.CalendarPickerView;
@@ -48,15 +49,8 @@ public class Time extends AppCompatActivity {
         confimDate_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ReservationDataStorage.year = datePicker.getYear();
-                ReservationDataStorage.month = datePicker.getMonth() + 1;
-                ReservationDataStorage.day = datePicker.getDayOfMonth();
 
-                final String url = getApplicationContext().getString(R.string.baseURL) + getApplicationContext().getString(R.string.reservationsURL) + "get?companyId=" +
-                        ReservationDataStorage.companyId + "&date=" + ReservationDataStorage.year + "-" + ReservationDataStorage.month + "-" + ReservationDataStorage.day;
-
-                ReservationDataStorage.url = url;
-
+                MainActivity.setDate(getApplicationContext(), datePicker.getYear(), datePicker.getMonth() + 1, datePicker.getDayOfMonth());
                 finish();
             }
         });

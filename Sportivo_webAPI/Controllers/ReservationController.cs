@@ -14,6 +14,7 @@ namespace Sportivo_webAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ReservationController : Controller
     {
 
@@ -29,7 +30,29 @@ namespace Sportivo_webAPI.Controllers
             return Ok(_reservationRepository.GetAllForCompanyOnDate(companyId, date));
         }
 
-        //[Authorize]
+        [HttpGet]
+        [Route("getMy")]
+        public IActionResult GetAllForUser()
+        {
+            StringValues headerValues;
+
+            if (Request.Headers.TryGetValue("Authorization", out headerValues))
+            {
+                string token_str = headerValues.First();
+                string[] token_arr = token_str.Split(" ");
+                var handler = new JwtSecurityTokenHandler();
+                var token = handler.ReadJwtToken(token_arr[1]);
+
+                var user = token.Payload["unique_name"];
+
+                int userId = int.Parse(user.ToString());
+
+                return Ok(_reservationRepository.GetAllForUser(userId));
+            }
+
+            return BadRequest();
+        }
+
         [HttpPost]
         [Route("create")]
         public IActionResult Create([FromBody]Reservation reservation, DateTime start, DateTime end)

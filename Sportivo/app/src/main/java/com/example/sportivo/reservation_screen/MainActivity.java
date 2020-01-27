@@ -53,19 +53,15 @@ public class MainActivity extends AppCompatActivity {
     TextView reservationDate;
     ExpandableListView expandableListView;
     MyExpanableListViewAdapter expandableListAdapter;
-    ItemAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rs_activity_main);
 
         expandableListView=findViewById(R.id.expandableListView);
-        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         reservationDate = (TextView) findViewById(R.id.reservationDate);
-        //reservationDate.setText(new SimpleDateFormat("dd MMM yyyy").format(new Date()));
         setDate();
-        reservationDate.setText(SimpleDateFormat.getDateInstance().format(new Date()));
 
         reservationDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +82,11 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         Log.i("blabla", "token: " + TokenManager.getToken());
+
+        Calendar cal = Calendar.getInstance();
+        cal.set(ReservationDataStorage.year, ReservationDataStorage.month, ReservationDataStorage.day);
+        
+        reservationDate.setText(SimpleDateFormat.getDateInstance().format(cal.getTime()));
 
         JsonArrayRequest getReservations = new JsonArrayRequest(Request.Method.GET, ReservationDataStorage.url, null, new Response.Listener<JSONArray>() {
             @Override
@@ -117,6 +118,16 @@ public class MainActivity extends AppCompatActivity {
         ReservationDataStorage.day = cal.get(Calendar.DAY_OF_MONTH);
 
         ReservationDataStorage.url = getApplicationContext().getString(R.string.baseURL) + getApplicationContext().getString(R.string.reservationsURL) + "get?companyId=" +
+                ReservationDataStorage.companyId + "&date=" + ReservationDataStorage.year + "-" + ReservationDataStorage.month + "-" + ReservationDataStorage.day;
+    }
+
+    public static void setDate(Context context, int year, int month, int day){
+
+        ReservationDataStorage.year = year;
+        ReservationDataStorage.month = month;
+        ReservationDataStorage.day = day;
+
+        ReservationDataStorage.url = context.getString(R.string.baseURL) + context.getString(R.string.reservationsURL) + "get?companyId=" +
                 ReservationDataStorage.companyId + "&date=" + ReservationDataStorage.year + "-" + ReservationDataStorage.month + "-" + ReservationDataStorage.day;
     }
 
