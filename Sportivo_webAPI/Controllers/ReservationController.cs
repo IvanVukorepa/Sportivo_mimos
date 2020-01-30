@@ -14,7 +14,6 @@ namespace Sportivo_webAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class ReservationController : Controller
     {
 
@@ -31,7 +30,15 @@ namespace Sportivo_webAPI.Controllers
         }
 
         [HttpGet]
+        [Route("getOnDateTime")]
+        public IActionResult GetOnDateTime(DateTime date)
+        {
+            return Ok(_reservationRepository.GetAllForDateTime(date));
+        }
+
+        [HttpGet]
         [Route("getMy")]
+        [Authorize]
         public IActionResult GetAllForUser()
         {
             StringValues headerValues;
@@ -55,6 +62,7 @@ namespace Sportivo_webAPI.Controllers
 
         [HttpPost]
         [Route("create")]
+        [Authorize]
         public IActionResult Create([FromBody]Reservation reservation, DateTime start, DateTime end)
         {
             StringValues headerValues;

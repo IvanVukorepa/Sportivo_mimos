@@ -10,29 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.sportivo.R;
-import com.example.sportivo.Reservation;
 import com.example.sportivo.ReservationDataStorage;
-import com.example.sportivo.Singleton;
-import com.example.sportivo.objects_screen.Objects;
 import com.example.sportivo.reservation_screen.MainActivity;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.squareup.timessquare.CalendarPickerView;
 
-import org.json.JSONArray;
-
-import java.lang.reflect.Method;
-import java.lang.reflect.Type;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
-public class Time extends AppCompatActivity {
+public class DateSelect extends AppCompatActivity {
 
     //CalendarPickerView datePicker;
     DatePicker datePicker;
@@ -50,7 +32,13 @@ public class Time extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                MainActivity.setDate(getApplicationContext(), datePicker.getYear(), datePicker.getMonth() + 1, datePicker.getDayOfMonth());
+                ReservationDataStorage.setDate(getApplicationContext(), datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth());
+
+                if (getIntent().getIntExtra("time", 0) == 1){
+                    Intent intent = new Intent(getApplicationContext(), TimeSelect.class);
+                    startActivity(intent);
+                }
+
                 finish();
             }
         });
@@ -65,7 +53,7 @@ public class Time extends AppCompatActivity {
         datePicker.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
             @Override
             public void onDateSelected(Date date) {
-                startActivity(new Intent(Time.this,PopUp.class));
+                startActivity(new Intent(DateSelect.this,PopUp.class));
 
                 }
 

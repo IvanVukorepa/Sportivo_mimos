@@ -39,7 +39,7 @@ public class S4_Adapter extends BaseAdapter {
         if (view == null)
             view = mInflater.inflate(R.layout.os_textlayout, viewGroup, false);
         final TextView name = (TextView) view.findViewById(R.id.name);
-        final Objects company = DataStorage.companies.get(i);
+        final Company company = DataStorage.companies.get(i);
         name.setText(company.getName());
 
         return view;

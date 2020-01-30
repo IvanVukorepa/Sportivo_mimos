@@ -15,7 +15,7 @@
         android:layout_marginBottom="@dimen/activity_vertical_margin">
 
         <RadioButton
-            android:id="@+id/time_rb"
+            android:id="@+id/place_rb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -24,7 +24,7 @@
             android:textSize="26dp" />
 
         <RadioButton
-            android:id="@+id/place_rb"
+            android:id="@+id/time_rb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"

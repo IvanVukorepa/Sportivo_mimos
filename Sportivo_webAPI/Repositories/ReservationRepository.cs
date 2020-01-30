@@ -16,7 +16,9 @@ namespace Sportivo_webAPI.Repositories
             {
                 using (var context = new SportivoContext(new DbContextOptions<SportivoContext>()))
                 {
-                    var reservations = context.Reservations.Where(r => r.UserId == id).ToList();
+                    var reservations = context.Reservations.Where(r => r.UserId == id)
+                        .Include(r => r.Court.Company)
+                        .ToList();
                     return reservations;
                 }
             }
@@ -30,6 +32,20 @@ namespace Sportivo_webAPI.Repositories
                 {
                     var reservations = context.Reservations.Where(r => r.Court.CompanyId == companyId && r.StartTime.Date == date.Date)
                         .Include(r => r.Court).ToList();
+                    return reservations;
+                }
+            }
+            catch { return null; }
+        }
+
+        public ICollection<Reservation> GetAllForDateTime(DateTime date)
+        {
+            try
+            {
+                using (var context = new SportivoContext(new DbContextOptions<SportivoContext>()))
+                {
+                    var reservations = context.Reservations.Where( r => r.StartTime.CompareTo(date) == 0)
+                        .Include(r => r.Court.Company).ToList();
                     return reservations;
                 }
             }

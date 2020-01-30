@@ -13,11 +13,11 @@
     <string name="courtsURL">api/court/</string>
     <string name="imagesURL">Uploads/Images/</string>
     <string-array name="SportsStringArray">
-    <item>Cageball</item>
-    <item>Futsal</item>
-    <item>Stolni tenis</item>
-    <item>Tenis</item>
-    <item>Kuglanje</item>
-    <item>Biljar</item>
-</string-array>
+        <item>Cageball</item>
+        <item>Futsal</item>
+        <item>Stolni tenis</item>
+        <item>Tenis</item>
+        <item>Kuglanje</item>
+        <item>Biljar</item>
+    </string-array>
 </resources>

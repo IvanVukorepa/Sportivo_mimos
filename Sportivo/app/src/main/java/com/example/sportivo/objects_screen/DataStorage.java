@@ -1,7 +1,6 @@
 package com.example.sportivo.objects_screen;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -11,7 +10,6 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.sportivo.R;
 import com.example.sportivo.ReservationDataStorage;
 import com.example.sportivo.Singleton;
-import com.example.sportivo.start_screen.Frag1_Sports;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -19,15 +17,14 @@ import org.json.JSONArray;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class DataStorage {
-    public static ArrayList<Objects> companies = new ArrayList<Objects>();
+    public static ArrayList<Company> companies = new ArrayList<Company>();
 
     public static void fillData(final Context context, final S4_Adapter adapter) {
         /*for (int i = 0; i < cageball.length; i++) {
-            Objects aObject = new Objects(i + 1, cageball[i]);
+            Company aObject = new Company(i + 1, cageball[i]);
             listViewData.put(i, aObject);
         }*/
 
@@ -37,7 +34,7 @@ public class DataStorage {
             @Override
             public void onResponse(JSONArray response) {
                 Gson gson = new Gson();
-                Type type = new TypeToken<List<Objects>>(){}.getType();
+                Type type = new TypeToken<List<Company>>(){}.getType();
                 companies = gson.fromJson(response.toString(), type);
                 adapter.notifyDataSetChanged();
             }

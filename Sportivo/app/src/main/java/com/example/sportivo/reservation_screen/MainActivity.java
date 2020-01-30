@@ -7,14 +7,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -29,7 +26,7 @@ import com.example.sportivo.ReservationDataStorage;
 import com.example.sportivo.Singleton;
 import com.example.sportivo.TimeSlot;
 import com.example.sportivo.TokenManager;
-import com.example.sportivo.time_screen.Time;
+import com.example.sportivo.time_screen.DateSelect;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -38,7 +35,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -61,12 +57,12 @@ public class MainActivity extends AppCompatActivity {
         expandableListView=findViewById(R.id.expandableListView);
 
         reservationDate = (TextView) findViewById(R.id.reservationDate);
-        setDate();
+        ReservationDataStorage.setDate(getApplicationContext());
 
         reservationDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Time.class);
+                Intent intent = new Intent(getApplicationContext(), DateSelect.class);
                 startActivity(intent);
             }
         });
@@ -84,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         Log.i("blabla", "token: " + TokenManager.getToken());
 
         Calendar cal = Calendar.getInstance();
-        cal.set(ReservationDataStorage.year, ReservationDataStorage.month, ReservationDataStorage.day);
+        cal.set(ReservationDataStorage.getYear(), ReservationDataStorage.getMonth() - 1, ReservationDataStorage.getDay());
         
         reservationDate.setText(SimpleDateFormat.getDateInstance().format(cal.getTime()));
 
@@ -102,33 +98,10 @@ public class MainActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Log.i("blabla", error.toString());
             }
         });
         Singleton.getInstance(getApplicationContext()).addToRequestQueue(getReservations);
-    }
-
-    private void setDate(){
-        Calendar cal = Calendar.getInstance();
-
-        cal.setTime(new Date());
-
-        ReservationDataStorage.year = cal.get(Calendar.YEAR);
-        //Months are counted form 0
-        ReservationDataStorage.month = cal.get(Calendar.MONTH) + 1;
-        ReservationDataStorage.day = cal.get(Calendar.DAY_OF_MONTH);
-
-        ReservationDataStorage.url = getApplicationContext().getString(R.string.baseURL) + getApplicationContext().getString(R.string.reservationsURL) + "get?companyId=" +
-                ReservationDataStorage.companyId + "&date=" + ReservationDataStorage.year + "-" + ReservationDataStorage.month + "-" + ReservationDataStorage.day;
-    }
-
-    public static void setDate(Context context, int year, int month, int day){
-
-        ReservationDataStorage.year = year;
-        ReservationDataStorage.month = month;
-        ReservationDataStorage.day = day;
-
-        ReservationDataStorage.url = context.getString(R.string.baseURL) + context.getString(R.string.reservationsURL) + "get?companyId=" +
-                ReservationDataStorage.companyId + "&date=" + ReservationDataStorage.year + "-" + ReservationDataStorage.month + "-" + ReservationDataStorage.day;
     }
 
     private Map<String, ArrayList<TimeSlot>> getAvailableSlots(){
@@ -206,18 +179,10 @@ public class MainActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Log.i("blabla", error.toString());
             }
         });
         Singleton.getInstance(getApplicationContext()).addToRequestQueue(getCourts);
-    }
-
-    private String getCourtName(int courtId){
-        for (Court court : ReservationDataStorage.courts){
-            if(court.getCourtId() == courtId)
-                return court.getCourtName();
-        }
-
-        return "Name";
     }
 
     public static void createReservation(final Context context, final int groupPosition, final int childPosition){

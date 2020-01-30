@@ -1,10 +1,15 @@
 package com.example.sportivo.objects_screen;
 
-public class Objects {
+import com.example.sportivo.Court;
+
+import java.util.ArrayList;
+
+public class Company {
 
     private String companyName;
     private int companyId;
-    public Objects(int ID, String name){
+    private ArrayList<Court> courts;
+    public Company(int ID, String name){
 
         this.companyName=name;
         this.companyId=ID;
@@ -16,5 +21,8 @@ public class Objects {
         return this.companyId;
     }
 
+    public ArrayList<Court> getCourts() {
+        return courts;
+    }
 }
 

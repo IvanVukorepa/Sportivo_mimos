@@ -20,4 +20,6 @@ public class Reservation {
     }
 
     public int getCourtId(){ return courtId; }
+
+    public Court getCourt(){ return court; }
 }

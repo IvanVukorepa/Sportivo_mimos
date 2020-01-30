@@ -53,8 +53,8 @@ public class Frag2_Adapter extends BaseAdapter {
         final TextView time = (TextView) view.findViewById(R.id.reservationDateTime);
         final Reservation reservation = Frag2_DataStorage.reservations.get(i);
 
-        time.setText(SimpleDateFormat.getDateInstance().format(reservation.getStartTime()));
-        companyName.setText("Comp Name");
+        time.setText(SimpleDateFormat.getDateTimeInstance().format(reservation.getStartTime()));
+        companyName.setText(reservation.getCourt().getCompany().getName());
 
         return view;
     }
