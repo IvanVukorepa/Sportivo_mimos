@@ -80,5 +80,23 @@ namespace Sportivo_webAPI.Repositories
             }
             catch { return false; }
         }
+
+        public ICollection<Company> GetAllForSport(int sportId)
+        {
+            try
+            {
+                using (var context = new SportivoContext(new DbContextOptions<SportivoContext>()))
+                {
+                    //var courts = context.Courts.Where(c => c.Sport.Name == sportName).ToList();
+                    var companies = context.Companies.Where(c => c.Courts.Any(court => court.Sport.SportId == sportId))
+                        .Include(c => c.Courts)
+                        .ToList();
+                    //var companies = context.Companies.Where(c => c.Courts.Contains(courts));
+
+                    return companies.ToList();
+                }
+            }
+            catch { return null; }
+        }
     }
 }

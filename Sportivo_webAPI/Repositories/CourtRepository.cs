@@ -23,6 +23,19 @@ namespace Sportivo_webAPI.Repositories
             catch { return null; }
         }
 
+        public ICollection<Court> GetAllOfCompanyForSport(int companyId, int sportId)
+        {
+            try
+            {
+                using (var context = new SportivoContext(new DbContextOptions<SportivoContext>()))
+                {
+                    var courts = context.Courts.Where(court => court.CompanyId == companyId && court.SportId == sportId).ToList();
+                    return courts;
+                }
+            }
+            catch { return null; }
+        }
+
         public Court Get(int id)
         {
             try

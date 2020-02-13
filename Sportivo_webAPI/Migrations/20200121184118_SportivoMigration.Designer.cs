@@ -10,7 +10,7 @@ using Sportivo_webAPI.DAL;
 namespace Sportivo_webAPI.Migrations
 {
     [DbContext(typeof(SportivoContext))]
-    [Migration("20200103164446_SportivoMigration")]
+    [Migration("20200121184118_SportivoMigration")]
     partial class SportivoMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,6 +27,8 @@ namespace Sportivo_webAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("Closes");
+
                     b.Property<string>("CompanyName");
 
                     b.Property<string>("Description");
@@ -34,6 +36,8 @@ namespace Sportivo_webAPI.Migrations
                     b.Property<double>("Latitude");
 
                     b.Property<double>("Longitude");
+
+                    b.Property<DateTime>("Opens");
 
                     b.Property<string>("PhoneNumber");
 
@@ -52,9 +56,13 @@ namespace Sportivo_webAPI.Migrations
 
                     b.Property<string>("CourtName");
 
+                    b.Property<int>("SportId");
+
                     b.HasKey("CourtId");
 
                     b.HasIndex("CompanyId");
+
+                    b.HasIndex("SportId");
 
                     b.ToTable("Courts");
                 });
@@ -67,7 +75,9 @@ namespace Sportivo_webAPI.Migrations
 
                     b.Property<int>("CourtId");
 
-                    b.Property<DateTime>("DateTime");
+                    b.Property<DateTime>("EndTime");
+
+                    b.Property<DateTime>("StartTime");
 
                     b.Property<int>("UserId");
 
@@ -78,6 +88,21 @@ namespace Sportivo_webAPI.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Reservations");
+                });
+
+            modelBuilder.Entity("Sportivo_webAPI.Models.Sport", b =>
+                {
+                    b.Property<int>("SportId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ImageURL");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("SportId");
+
+                    b.ToTable("Sports");
                 });
 
             modelBuilder.Entity("Sportivo_webAPI.Models.User", b =>
@@ -114,6 +139,11 @@ namespace Sportivo_webAPI.Migrations
                     b.HasOne("Sportivo_webAPI.Models.Company", "Company")
                         .WithMany("Courts")
                         .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Sportivo_webAPI.Models.Sport", "Sport")
+                        .WithMany()
+                        .HasForeignKey("SportId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

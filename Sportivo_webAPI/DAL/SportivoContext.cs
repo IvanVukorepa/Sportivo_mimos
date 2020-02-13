@@ -26,5 +26,6 @@ namespace Sportivo_webAPI.DAL
         public DbSet<Court> Courts { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<Sport> Sports { get; set; }
     }
 }
