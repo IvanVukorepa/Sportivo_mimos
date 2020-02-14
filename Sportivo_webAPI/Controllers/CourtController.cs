@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Sportivo_webAPI.Models;
 using Sportivo_webAPI.Repositories;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,13 @@ namespace Sportivo_webAPI.Controllers
         public IActionResult Get(int companyId, int sportId)
         {
             return Ok(_courtRepository.GetAllOfCompanyForSport(companyId, sportId));
+        }
+
+        [HttpPost]
+        [Route("add")]
+        public IActionResult Add([FromBody]Court court)
+        {
+            return Ok(_courtRepository.Add(court));
         }
     }
 }

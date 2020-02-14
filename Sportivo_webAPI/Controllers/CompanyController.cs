@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Sportivo_webAPI.Models;
 using Sportivo_webAPI.Repositories;
 using System;
 using System.Collections.Generic;
@@ -16,11 +17,19 @@ namespace Sportivo_webAPI.Controllers
         {
             _companyRepository = new CompanyRepository();
         }
+
         [HttpGet]
         [Route("getAll")]
         public IActionResult Get(int sportId)
         {
             return Ok(_companyRepository.GetAllForSport(sportId));
+        }
+
+        [HttpPost]
+        [Route("register")]
+        public IActionResult Register([FromBody]Company company)
+        {
+            return Ok(_companyRepository.Add(company));
         }
     }
 }

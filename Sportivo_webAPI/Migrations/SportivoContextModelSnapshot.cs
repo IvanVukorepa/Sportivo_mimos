@@ -25,17 +25,18 @@ namespace Sportivo_webAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Closes");
+                    b.Property<DateTime?>("Closes");
 
-                    b.Property<string>("CompanyName");
+                    b.Property<string>("CompanyName")
+                        .IsRequired();
 
                     b.Property<string>("Description");
 
-                    b.Property<double>("Latitude");
+                    b.Property<double?>("Latitude");
 
-                    b.Property<double>("Longitude");
+                    b.Property<double?>("Longitude");
 
-                    b.Property<DateTime>("Opens");
+                    b.Property<DateTime?>("Opens");
 
                     b.Property<string>("PhoneNumber");
 
@@ -53,6 +54,8 @@ namespace Sportivo_webAPI.Migrations
                     b.Property<int>("CompanyId");
 
                     b.Property<string>("CourtName");
+
+                    b.Property<int>("Price");
 
                     b.Property<int>("SportId");
 
