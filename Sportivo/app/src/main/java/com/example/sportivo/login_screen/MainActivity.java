@@ -7,12 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TabWidget;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -20,12 +17,12 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.sportivo.R;
 import com.example.sportivo.Singleton;
 import com.example.sportivo.TokenManager;
+import com.example.sportivo.admin_screen.AdminMainActivity;
+import com.example.sportivo.admin_screen.AdminReservationsDataStorage;
 import com.example.sportivo.newuser_screen.NewUser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,11 +56,19 @@ public class MainActivity extends AppCompatActivity {
                         public void onResponse(JSONObject response) {
                             //Toast.makeText(getApplicationContext(),response.toString(), Toast.LENGTH_LONG).show();
                             String token = response.optString("token", "failed to get token");
+                            int companyId = response.optInt("companyId", -1);
                             TokenManager.setToken(token);
-                            boolean decodeToken = TokenManager.decodeToken(token);
-                            if(decodeToken){
+                            Log.i("blabla", String.valueOf(companyId));
+
+                            if(TokenManager.decodeToken(token)){
                                 //Toast.makeText(getApplicationContext(), TokenManager.getPayloadData("username"), Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent(getApplicationContext(), com.example.sportivo.start_screen.MainActivity.class);
+                                Intent intent;
+                                if(companyId == -1) {
+                                    intent = new Intent(getApplicationContext(), com.example.sportivo.start_screen.MainActivity.class);
+                                }else{
+                                    AdminReservationsDataStorage.companyId=companyId;
+                                    intent = new Intent(getApplicationContext(), AdminMainActivity.class);
+                                }
                                 startActivity(intent);
                             }
                             else{

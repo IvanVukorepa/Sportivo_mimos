@@ -23,8 +23,9 @@
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/admin_add_court_sports_spinner"
         android:backgroundTint="@android:color/holo_green_dark"
-        android:entries="@array/SportsStringArray"
+
         android:theme="@style/spinnerTheme" />
 
     </LinearLayout>
@@ -100,6 +101,7 @@
 
     <Button
         android:text="Dodaj teren"
+        android:id="@+id/admin_add_court_confirm_btn"
         android:background="@drawable/button_style"
         android:textColor="@android:color/white"
         android:layout_marginTop="@dimen/activity_vertical_margin"

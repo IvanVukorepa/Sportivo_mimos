@@ -51,10 +51,6 @@ public class Frag1_DataStorage {
 
             Singleton.getInstance(context).addToRequestQueue(getSports);
 
-            Log.i("blabla", "token: " + TokenManager.getToken());
-
         }
-
-        private static String[] names = {"Cageball", "Tenis", "Futsal", "Stolni tenis", "Biljar", "Kuglanje"};
     }
 

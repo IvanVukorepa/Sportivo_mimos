@@ -14,13 +14,13 @@ namespace Sportivo_webAPI.Migrations
                 {
                     CompanyId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CompanyName = table.Column<string>(nullable: true),
-                    Latitude = table.Column<double>(nullable: false),
-                    Longitude = table.Column<double>(nullable: false),
+                    CompanyName = table.Column<string>(nullable: false),
+                    Latitude = table.Column<double>(nullable: true),
+                    Longitude = table.Column<double>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    Opens = table.Column<DateTime>(nullable: false),
-                    Closes = table.Column<DateTime>(nullable: false)
+                    Opens = table.Column<DateTime>(nullable: true),
+                    Closes = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -75,7 +75,8 @@ namespace Sportivo_webAPI.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CourtName = table.Column<string>(nullable: true),
                     CompanyId = table.Column<int>(nullable: false),
-                    SportId = table.Column<int>(nullable: false)
+                    SportId = table.Column<int>(nullable: false),
+                    Price = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

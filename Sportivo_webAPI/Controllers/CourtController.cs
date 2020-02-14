@@ -22,5 +22,12 @@ namespace Sportivo_webAPI.Controllers
         {
             return Ok(_courtRepository.GetAllOfCompanyForSport(companyId, sportId));
         }
+
+        [HttpPost]
+        [Route("add")]
+        public IActionResult Add()
+        {
+            return Ok();
+        }
     }
 }

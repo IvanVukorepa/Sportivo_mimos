@@ -36,7 +36,7 @@ namespace Sportivo_webAPI.Repositories
             catch { return null; }
         }
 
-        public bool Add(Company company)
+        public int Add(Company company)
         {
             try
             {
@@ -44,10 +44,10 @@ namespace Sportivo_webAPI.Repositories
                 {
                     context.Companies.Add(company);
                     context.SaveChanges();
-                    return true;
+                    return company.CompanyId;
                 }
             }
-            catch { return false; }
+            catch { return -1; }
         }
         public bool Update(Company company, Company updated)
         {

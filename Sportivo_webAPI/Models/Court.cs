@@ -13,6 +13,7 @@ namespace Sportivo_webAPI.Models
         public int CompanyId { get; set; }
         public Sport Sport { get; set; }
         public int SportId { get; set; }
+        public int Price { get; set; }
         public ICollection<Reservation> Reservations { get; set; }
     }
 }
