@@ -44,8 +44,4 @@ public class TokenManager {
         TokenManager.token = token;
     }
 
-    public static String getToken(){
-        return TokenManager.token;
-    }
-
 }

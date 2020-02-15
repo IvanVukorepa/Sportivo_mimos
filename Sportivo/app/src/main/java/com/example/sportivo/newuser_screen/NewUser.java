@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
@@ -35,8 +36,8 @@ public class NewUser extends AppCompatActivity {
         back_btn = (Button) findViewById(R.id.back_btn);
         username_tv = (TextView) findViewById(R.id.username_tv);
         createuser_btn = (Button) findViewById(R.id.createuser_btn);
-        password_tv = (TextView) findViewById(R.id.createpassword_tv);
-        password2_tv = (TextView) findViewById(R.id.confirmpass_tv);
+        password_tv = (TextView) findViewById(R.id.createpassword);
+        password2_tv = (TextView) findViewById(R.id.confirmpass);
 
 
         username_tv.setOnFocusChangeListener(new View.OnFocusChangeListener() {

@@ -22,19 +22,6 @@ namespace Sportivo_webAPI.Repositories
             }
             catch { return null; }
         }
-        public ICollection<Reservation> GetAllForCompanyOnDate(int companyId, DateTime date)
-        {
-            try
-            {
-                using (var context = new SportivoContext(new DbContextOptions<SportivoContext>()))
-                {
-                    var reservations = context.Reservations.Where(r => r.Court.CompanyId == companyId && r.StartTime.Date == date.Date)
-                        .Include(r => r.Court).ToList();
-                    return reservations;
-                }
-            }
-            catch { return null; }
-        }
 
         public Reservation Get(int id)
         {
@@ -68,8 +55,7 @@ namespace Sportivo_webAPI.Repositories
             {
                 using (var context = new SportivoContext(new DbContextOptions<SportivoContext>()))
                 {
-                    reservation.StartTime = updated.StartTime;
-                    reservation.EndTime = updated.EndTime;
+                    reservation.DateTime = updated.DateTime;
 
                     context.SaveChanges();
                     return true;

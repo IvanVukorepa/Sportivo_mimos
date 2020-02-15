@@ -1,15 +1,15 @@
-package com.example.sportivo.admin_screen;
+package com.example.sportivo.reservation_screen;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.sportivo.R;
 
-public class AdminNapraviTermin extends AppCompatActivity {
+public class S5_Main extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.admin_layout);
+        setContentView(R.layout.rs_termin_base);
+
     }
 }

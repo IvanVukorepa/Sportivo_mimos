@@ -2,18 +2,15 @@ package com.example.sportivo.objects_screen;
 
 public class Objects {
 
-    private String companyName;
-    private int companyId;
+    private String name;
+    private int ID;
     public Objects(int ID, String name){
 
-        this.companyName=name;
-        this.companyId=ID;
+        this.name=name;
+        this.ID=ID;
     }
     public String getName(){
-        return this.companyName;
-    }
-    public int getId(){
-        return this.companyId;
+        return name;
     }
 
 }
