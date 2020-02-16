@@ -1,6 +1,7 @@
 package com.example.sportivo;
 
 import java.util.Date;
+import java.util.Locale;
 
 public class TimeSlot {
 
@@ -43,7 +44,7 @@ public class TimeSlot {
 
     public String getTimeOfDay(){
 
-        return String.valueOf(startsHour) + ":" + String.valueOf(startsMinutes);
+        return String.format(Locale.GERMAN,"%02d", startsHour) + ":" + String.format(Locale.GERMAN,"%02d",startsMinutes);
     }
 
     public String getStartTimeOfDayWithMinutes(){

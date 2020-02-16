@@ -93,6 +93,7 @@ namespace Sportivo_webAPI.Repositories
                 using (var context = new SportivoContext(new DbContextOptions<SportivoContext>()))
                 {
                     context.Users.Remove(user);
+                    context.SaveChanges();
                     return true;
                 }
             }

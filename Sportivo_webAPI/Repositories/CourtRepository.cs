@@ -84,6 +84,7 @@ namespace Sportivo_webAPI.Repositories
                 using (var context = new SportivoContext(new DbContextOptions<SportivoContext>()))
                 {
                     context.Courts.Remove(court);
+                    context.SaveChanges();
                     return true;
                 }
             }

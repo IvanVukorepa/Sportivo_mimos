@@ -88,6 +88,29 @@ namespace Sportivo_webAPI.Controllers
 
             return BadRequest();
         }
-        
+
+        [HttpDelete]
+        [Route("delete")]
+        [Authorize]
+        public IActionResult Delete(int reservationId)
+        {
+            StringValues headerValues;
+            var a = Request.Body;
+
+            if (Request.Headers.TryGetValue("Authorization", out headerValues))
+            {
+                string token_str = headerValues.First();
+                string[] token_arr = token_str.Split(" ");
+                var handler = new JwtSecurityTokenHandler();
+                var token = handler.ReadJwtToken(token_arr[1]);
+
+                var userId = token.Payload["unique_name"];
+
+                return Ok(_reservationRepository.Delete(reservationId, int.Parse(userId.ToString())));
+            }
+
+            return BadRequest();
+        }
+
     }
 }

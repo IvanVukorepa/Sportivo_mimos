@@ -6,44 +6,43 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.sportivo.R;
 import com.example.sportivo.ReservationDataStorage;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class TimeSelect extends AppCompatActivity {
 
     Button confirmTime;
-    TextView plus, minus;
-    TextView timePicker;
+    NumberPicker numpick;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_time_select);
+        setContentView(R.layout.ts_choose);
 
         confirmTime = (Button) findViewById(R.id.confirmTime_btn);
-        plus = (TextView) findViewById(R.id.plus);
-        minus = (TextView) findViewById(R.id.minus);
-        timePicker = (TextView) findViewById(R.id.timePicker);
+        numpick = (NumberPicker) findViewById(R.id.numpick);
 
-        int hour = Integer.parseInt(timePicker.getText().toString());
-        ReservationDataStorage.setTime(getApplicationContext(), hour, 0 ,0);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
 
-        plus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addToHour();
-            }
-        });
+        if(cal.get(Calendar.YEAR) == ReservationDataStorage.getYear() &&
+                cal.get(Calendar.MONTH) == (ReservationDataStorage.getMonth()-1) &&
+                cal.get(Calendar.DAY_OF_MONTH) == ReservationDataStorage.getDay()){
+            numpick.setMinValue(cal.get(Calendar.HOUR_OF_DAY)+1);
+        }else{
+            numpick.setMinValue(0);
+        }
 
-        minus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                subtractFromHour();
-            }
-        });
+        numpick.setMaxValue(23);
+
+        ReservationDataStorage.setTime(getApplicationContext(),numpick.getValue() , 0 ,0);
 
         confirmTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,23 +50,15 @@ public class TimeSelect extends AppCompatActivity {
                 finish();
             }
         });
+
+        numpick.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+
+                ReservationDataStorage.setTime(getApplicationContext(), newVal, ReservationDataStorage.getMinute(), ReservationDataStorage.getSecond());
+            }
+        });
+
     }
 
-    private void subtractFromHour() {
-        int hour = Integer.parseInt(timePicker.getText().toString());
-
-        if(hour > 0){
-            timePicker.setText(String.valueOf(--hour));
-            ReservationDataStorage.setTime(getApplicationContext(), hour, ReservationDataStorage.getMinute(), ReservationDataStorage.getSecond());
-        }
-    }
-
-    private void addToHour() {
-        int hour = Integer.parseInt(timePicker.getText().toString());
-
-        if(hour < 23){
-            timePicker.setText(String.valueOf(++hour));
-            ReservationDataStorage.setTime(getApplicationContext(), hour, ReservationDataStorage.getMinute(), ReservationDataStorage.getSecond());
-        }
-    }
 }

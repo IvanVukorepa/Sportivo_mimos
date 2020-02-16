@@ -75,6 +75,7 @@ namespace Sportivo_webAPI.Repositories
                 using (var context = new SportivoContext(new DbContextOptions<SportivoContext>()))
                 {
                     context.Companies.Remove(company);
+                    context.SaveChanges();
                     return true;
                 }
             }

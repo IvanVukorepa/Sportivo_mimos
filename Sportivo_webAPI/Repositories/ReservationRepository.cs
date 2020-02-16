@@ -94,14 +94,21 @@ namespace Sportivo_webAPI.Repositories
             catch { return false; }
         }
 
-        public bool Delete(Reservation reservation)
+        public bool Delete(int reservationId, int userId)
         {
             try
             {
                 using (var context = new SportivoContext(new DbContextOptions<SportivoContext>()))
                 {
-                    context.Reservations.Remove(reservation);
-                    return true;
+                    var reservation = context.Reservations.FirstOrDefault(r => r.ReservationId == reservationId);
+                    var user = context.Users.FirstOrDefault(u => u.UserId == userId);
+                    if (reservation.UserId == userId || reservation.Court.CompanyId == user.CompanyId)
+                    {
+                        context.Reservations.Remove(reservation);
+                        context.SaveChanges();
+                        return true;
+                    }
+                    return false;
                 }
             }
             catch { return false; }
