@@ -16,7 +16,7 @@ namespace Sportivo_webAPI.Models
         public string PhoneNumber { get; set; }
         public string Description { get; set; }
         public ICollection<Court> Courts { get; set; }
-        public DateTime? Opens { get; set; }
-        public DateTime? Closes { get; set; }
+        public int Opens { get; set; }
+        public int Closes { get; set; }
     }
 }
