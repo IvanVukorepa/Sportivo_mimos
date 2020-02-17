@@ -23,13 +23,15 @@ namespace Sportivo_webAPI.Repositories
             catch { return null; }
         }
 
-        public Company Get(int id)
+        public ICollection<Company> GetCompany(int id)
         {
             try
             {
                 using (var context = new SportivoContext(new DbContextOptions<SportivoContext>()))
                 {
-                    var company = context.Companies.FirstOrDefault(c => c.CompanyId == id);
+                    var company = context.Companies.Where(c => c.CompanyId == id).Include(c => c.Courts)
+                        .Include(c => c.Courts)
+                        .ToList();
                     return company;
                 }
             }

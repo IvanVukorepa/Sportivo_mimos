@@ -25,6 +25,13 @@ namespace Sportivo_webAPI.Controllers
             return Ok(_companyRepository.GetAllForSport(sportId));
         }
 
+        [HttpGet]
+        [Route("getById")]
+        public IActionResult GetById(int companyId)
+        {
+            return Ok(_companyRepository.GetCompany(companyId));
+        }
+
         [HttpPost]
         [Route("register")]
         public IActionResult Register([FromBody]Company company)

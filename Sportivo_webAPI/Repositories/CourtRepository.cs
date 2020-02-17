@@ -49,12 +49,18 @@ namespace Sportivo_webAPI.Repositories
             catch { return null; }
         }
 
-        public bool Add(Court court)
+        public bool Add(Court court, int userId)
         {
             try
             {
                 using (var context = new SportivoContext(new DbContextOptions<SportivoContext>()))
                 {
+                    var user = context.Users.FirstOrDefault(u => u.UserId == userId);
+                    if(user.CompanyId != court.CompanyId)
+                    {
+                        return false;
+                    }
+
                     context.Courts.Add(court);
                     context.SaveChanges();
                     return true;
